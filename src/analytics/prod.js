@@ -10,6 +10,8 @@ const QS_KEY = {
   'utm_content': 'campaignContent'
 };
 
+const UTM_KEY_NAME = 'utmKeys';
+
 export function init(code) {
   if (IS_BROWSER && !window.GA_INITIALIZED && code) {
     ReactGA.initialize(code);
@@ -17,6 +19,7 @@ export function init(code) {
 }
 
 export function pageview() {
+  let campStr = '';
   window.location.search
     .replace(/^\?/, '')
     .split('&')
@@ -25,11 +28,15 @@ export function pageview() {
       if (QS_KEY.hasOwnProperty(key)) {
         const newKey = QS_KEY[key];
         ReactGA.set({[newKey]: value});
-        try {
-          window.sessionStorage.setItem(newKey, value);
-        } catch (e) {}
+        campStr += `${newKey}=${value}&`;
       }
     });
+  campStr = campStr.replace(/&$/, '');
+  if (campStr) {
+    try {
+      window.sessionStorage.setItem(UTM_KEY_NAME, campStr);
+    } catch (e) {}
+  }
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
 }

@@ -1,8 +1,8 @@
 {
-  "name": "next-ga",
+  "name": "f-next-ga",
   "version": "2.3.4",
   "main": "index.js",
-  "repository": "https://github.com/sergiodxa/next-ga.git",
+  "repository": "https://github.com/BigMurry/next-ga.git",
   "author": "Sergio Xalambrí <sergiodxa@gmail.com> (https://sergiodxa.com)",
   "license": "MIT",
   "keywords": [
